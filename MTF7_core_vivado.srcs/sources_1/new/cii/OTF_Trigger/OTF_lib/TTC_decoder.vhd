@@ -118,9 +118,9 @@ begin
   Brcst    <= Brcst_i;
   TTCready <= TTC_lock;
 --TTCready <= '1';
-  i_TTC_CLK_in : ibufds generic map(DIFF_TERM => true, IOSTANDARD => "LVDS_25")
+  i_TTC_CLK_in : ibufds generic map(DIFF_TERM => true)
     port map(i => TTC_CLK_p, ib => TTC_CLK_n, o => TTC_CLK_in);
-  i_TTC_data_in : ibufds generic map(DIFF_TERM => true, IOSTANDARD => "LVDS_25")
+  i_TTC_data_in : ibufds generic map(DIFF_TERM => true)
     port map(i => TTC_data_p, ib => TTC_data_n, o => TTC_data_in);
   i_TTC_CLK_buf : bufg port map(i => TTC_CLK_in, o => TTC_CLK);
   i_TTC_data    : IDDR

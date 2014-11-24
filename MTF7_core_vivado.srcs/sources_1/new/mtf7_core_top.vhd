@@ -27,18 +27,24 @@ use UNISIM.VComponents.all;
 
 entity mtf7_core_top is
 Port (
+--General signals
     m_aresetn : in std_logic;
     clk_125M : in std_logic;
-
+--Chip2Chip interface
     ext_clk_in : in std_logic;
     ext_data_in : in std_logic_vector(8 downto 0);
     ext_clk_out : out std_logic;
     ext_data_out : out std_logic_vector(8 downto 0);
-
+--TTC
+    ttc_data_p : in std_logic;
+    ttc_data_n : in std_logic;
+    lhc_clk_p : in std_logic;
+    lhc_clk_n : in std_logic;
+--LEDs
     led : out std_logic_vector(3 downto 0);
 
     clk40_in : in std_logic;
-
+--test signals
     clk40_out : out std_logic;
     clk200_out : out std_logic
 );
@@ -46,13 +52,15 @@ end mtf7_core_top;
 
 architecture Behavioral of mtf7_core_top is
 
-constant NSLV: positive := 1;
+constant NSLV: positive := 2;
+constant CII_ADDR_WIDTH : positive := 16;
 
 attribute mark_debug : string;
 
 signal clk_125M_buf : std_logic;
 signal idelay_ref_clk : std_logic;
 signal clk40_aligned : std_logic;
+signal lhc_clk : std_logic;
 
 signal m_aclk : std_logic;
 signal m_axi_awid : std_logic_vector(0 downto 0);
@@ -101,12 +109,19 @@ attribute mark_debug of ipb_master_out: signal is "true";
 signal ipbw: ipb_wbus_array(NSLV-1 downto 0);
 signal ipbr, ipbr_d: ipb_rbus_array(NSLV-1 downto 0);
 
+signal cii_resetn : std_logic;
+signal cii_opern : std_logic;
+signal cii_writen : std_logic;
+signal cii_stroben : std_logic;
+signal cii_addr : std_logic_vector(CII_ADDR_WIDTH-1 downto 0);
+signal cii_din : std_logic_vector(31 downto 0);
+signal cii_dout : std_logic_vector(31 downto 0);
+
 begin
 
-clk40_out <= clk40_aligned;
+clk40_out <= lhc_clk;
 clk200_out <= idelay_ref_clk;
-m_aclk <= clk40_aligned;
-ipb_clk <= m_aclk;
+m_aclk <= lhc_clk;
 ipb_rst <= not(m_aresetn);
 
 clk125_ibuf: IBUFG port map(
@@ -211,7 +226,41 @@ port map(
     ipbus_in => ipbw(0),
     ipbus_out => ipbr(0)
 );
-	
+
+ipb_sl2: entity work.ipb_cii_bridge
+generic map(g_addr_width => 16)
+port map(
+    clk => ipb_clk,
+    ipb_rst => ipb_rst,
+    ipb_in => ipbw(1),
+    ipb_out => ipbr(1),
+    ii_resetn => cii_resetn,
+    ii_opern => cii_opern,
+    ii_writen => cii_writen,
+    ii_stroben => cii_stroben,
+    ii_addr => cii_addr,
+    ii_dout => cii_din,
+    ii_din => cii_dout
+);
+
+cii_master: entity work.ktp_mtf7_top
+port map(
+    TTC_CLK_p => lhc_clk_p,
+    TTC_CLK_n => lhc_clk_n,
+    TTC_data_p => ttc_data_p,
+    TTC_data_n => ttc_data_n,
+    lhc_clk => lhc_clk,
+    --RPC link
+    link_data => m_axi_wdata, --TODO!!!
+    --CII
+    ii_resetn => cii_resetn,
+    ii_opern => cii_opern,
+    ii_writen => cii_writen,
+    ii_stroben => cii_stroben,
+    ii_addr => cii_addr,
+    ii_in_data => cii_din,
+    ii_out_data => cii_dout
+);
 m_pll: entity work.main_pll
 port map ( 
     -- Clock in ports

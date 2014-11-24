@@ -17,6 +17,15 @@ set_property IOSTANDARD LVCMOS12 [get_ports ext_clk_out]
 set_property DRIVE 8 [get_ports ext_clk_out]
 set_property SLEW FAST [get_ports ext_clk_out]
 
+set_property PACKAGE_PIN AV27 [get_ports lhc_clk_p]
+set_property IOSTANDARD LVDS [get_ports lhc_clk_p]
+set_property PACKAGE_PIN AV28 [get_ports lhc_clk_n]
+set_property IOSTANDARD LVDS [get_ports lhc_clk_n]
+set_property PACKAGE_PIN AW30 [get_ports ttc_data_p]
+set_property IOSTANDARD LVDS [get_ports ttc_data_p]
+set_property PACKAGE_PIN AW31 [get_ports ttc_data_n]
+set_property IOSTANDARD LVDS [get_ports ttc_data_n]
+
 # must be a clock pin
 # CNT<99>
 set_property PACKAGE_PIN AT21 [get_ports ext_clk_in]

@@ -11,12 +11,85 @@
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="TargetLanguage" Val="VHDL"/>
     <Option Name="BoardPart" Val=""/>
+    <Option Name="SourceMgmtMode" Val="DisplayOnly"/>
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
   </Configuration>
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
+      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/std_logic_1164_ktp.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/std_logic_arith_ktp.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/misc_lib/uart.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/KTPConsistency.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/ComponentII.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/KTP_CII/CII_SYS_def.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/KTP_CII/CII_SYS_imp.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/LPMComponent.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/KTPComponent.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/OTF_Trigger/CII_OTF_System/CII_MTF7/CII_MTF7_OPTO_def.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/OTF_Trigger/CII_OTF_System/CII_OTF_def.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/LPMComp_UnitechPkg.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sources_1/imports/hdl/ipbus_package.vhd">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../muon_trigger/firmware/test_projects/mtf7_control/rtl/ipbus_core/hdl/ipbus_package.vhd"/>
@@ -25,10 +98,70 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/KTP_CII/CII_SYS.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/LPMDiagnostics.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/LPMSynchro.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/OTF_Trigger/CII_OTF_System/CII_MTF7/CII_MTF7_OPTO_imp.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/OTF_Trigger/CII_OTF_System/CII_MTF7/CII_MTF7_def.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/OTF_Trigger/CII_OTF_System/CII_OTF_lib.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sources_1/imports/rtl/ipbus_addr_decode.vhd">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../muon_trigger/firmware/test_projects/mtf7_control/rtl/ipbus_addr_decode.vhd"/>
           <Attr Name="ImportTime" Val="1404133381"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/OTF_Trigger/CII_OTF_System/CII_MTF7/CII_MTF7_OPTO_lib.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/OTF_Trigger/CII_OTF_System/CII_MTF7/CII_MTF7_OPTO.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/OTF_Trigger/OTF_lib/TTC_decoder.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/ipb_cii_bridge.vhd">
+        <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -55,6 +188,12 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/new/cii/OTF_Trigger/OTF_System/MTF7/KTP_MTF7.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sources_1/new/mtf7_core_top.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -63,55 +202,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/ip/control_to_core_slave_axi/control_to_core_slave_axi.upgrade_log"/>
       <File Path="$PSRCDIR/sources_1/ip/main_pll/main_pll.upgrade_log"/>
-      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/std_logic_arith_ktp.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/KTPConsistency.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/LPMComponent.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/ComponentII.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/LPMDiagnostics.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/LPMComp_UnitechCmp.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/LPMComp_UnitechPkg.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/KTPComponent.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/LPMSynchro.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -123,49 +214,19 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/std_logic_1164_ktp.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/new/cii/KTP_lib/LPMComp_Spartan6.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/KTP_CII/CII_SYS.vhd">
+      <File Path="$PSRCDIR/sources_1/new/cii/OTF_Trigger/CII_OTF_System/CII_OTF_imp.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/KTP_CII/CII_SYS_imp.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/KTP_CII/CII_SYS_def.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/CII_RPC_System/CII_TB/CII_MTF7_OPTO.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/CII_RPC_System/CII_TB/CII_MTF7_OPTO_imp.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/cii/CII_RPC_System/CII_TB/CII_MTF7_OPTO_def.vhd">
+      <File Path="$PSRCDIR/sources_1/new/cii/OTF_Trigger/CII_OTF_System/CII_MTF7/CII_MTF7_imp.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -250,7 +311,9 @@
     <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7vx690tffg1927-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" State="current" Dir="$PRUNDIR/synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
-        <Step Id="synth_design"/>
+        <Step Id="synth_design">
+          <Option Id="FlattenHierarchy">1</Option>
+        </Step>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
@@ -268,7 +331,7 @@
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
-    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1927-2" ConstrsSet="constrs_1" Description="Vivado Implementation Defaults" State="current" SynthRun="synth_1">
+    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1927-2" ConstrsSet="constrs_1" Description="Vivado Implementation Defaults" State="current" Dir="$PRUNDIR/impl_1" SynthRun="synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
         <Step Id="init_design"/>
@@ -281,6 +344,7 @@
         <Step Id="post_route_phys_opt_design"/>
         <Step Id="write_bitstream"/>
       </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
     <Run Id="control_to_core_slave_axi_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1927-2" ConstrsSet="control_to_core_slave_axi" Description="Vivado Implementation Defaults" SynthRun="control_to_core_slave_axi_synth_1">
       <Strategy Version="1" Minor="2">
