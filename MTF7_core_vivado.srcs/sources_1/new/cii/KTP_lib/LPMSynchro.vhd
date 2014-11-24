@@ -3859,10 +3859,13 @@ begin
     end if;
   end process;
 
-  process (clock, resetN, clock_inv, in_data, DataRegN) begin
+  process (clock, resetN, clock_inv, in_data, DataRegN)
+    variable clkv :TL;
+  begin
+    if (INPUT_REGISTERED=FALSE) then clkv := TRUE; else clkv := (clock'event and clock='1'); end if;
     if (INPUT_REGISTERED=TRUE and resetN='0') then
       DataReg <= (others=>'0');
-    elsif (INPUT_REGISTERED=FALSE or (clock'event and clock='1')) then
+    elsif (clkv) then
       if (clock_inv = '0') then
         DataReg <= in_data;
       else
@@ -3896,10 +3899,13 @@ begin
     DataDel <= DataReg;
   end generate;
   --
-  process (clock, resetN, check_data) begin
+  process (clock, resetN, check_data)
+    variable clkv :TL;
+  begin
+    if (CHECK_REGISTERED=FALSE) then clkv := TRUE; else clkv := (clock'event and clock='1'); end if;
     if (CHECK_REGISTERED=TRUE and resetN='0') then
       CheckDataReg <= (others=>'0');
-    elsif (CHECK_REGISTERED=FALSE or (clock'event and clock='1')) then
+    elsif (clkv) then
       CheckDataReg <= check_data;
     end if;
   end process;
@@ -4048,12 +4054,14 @@ begin
   --
   DataValidSig <= AND_REDUCE(DataTestORdataSigN);
   process (clock, resetN, DataOutSig, DataTestSig, DataValidSig, test_ena, check_ena, check_data_ena)
+    variable clkv :TL;
   begin
+    if (OUTPUT_REGISTERED=FALSE) then clkv := TRUE; else clkv := (clock'event and clock='1'); end if;
     if (OUTPUT_REGISTERED=TRUE and resetN='0') then
       DataOutReg   <= (others=>'0');
       DataValidReg <= '0';
       DataTestReg  <= (others=>'0');
-    elsif (OUTPUT_REGISTERED=FALSE or (clock'event and clock='1')) then
+    elsif (clkv) then
       if (DataValidSig='1' and test_ena='0') then
         DataOutReg <= DataOutSig;
       else
