@@ -3862,7 +3862,7 @@ begin
   process (clock, resetN, clock_inv, in_data, DataRegN)
     variable clkv :TL;
   begin
-    if (INPUT_REGISTERED=FALSE) then clkv := TRUE; else clkv := (clock'event and clock='1'); end if;
+    if (INPUT_REGISTERED=FALSE) then clkv := TRUE; else clkv := rising_edge(clock); end if;
     if (INPUT_REGISTERED=TRUE and resetN='0') then
       DataReg <= (others=>'0');
     elsif (clkv) then
@@ -3902,7 +3902,7 @@ begin
   process (clock, resetN, check_data)
     variable clkv :TL;
   begin
-    if (CHECK_REGISTERED=FALSE) then clkv := TRUE; else clkv := (clock'event and clock='1'); end if;
+    if (CHECK_REGISTERED=FALSE) then clkv := TRUE; else clkv := rising_edge(clock); end if;
     if (CHECK_REGISTERED=TRUE and resetN='0') then
       CheckDataReg <= (others=>'0');
     elsif (clkv) then
@@ -4056,7 +4056,7 @@ begin
   process (clock, resetN, DataOutSig, DataTestSig, DataValidSig, test_ena, check_ena, check_data_ena)
     variable clkv :TL;
   begin
-    if (OUTPUT_REGISTERED=FALSE) then clkv := TRUE; else clkv := (clock'event and clock='1'); end if;
+    if (OUTPUT_REGISTERED=FALSE) then clkv := TRUE; else clkv := rising_edge(clock); end if;
     if (OUTPUT_REGISTERED=TRUE and resetN='0') then
       DataOutReg   <= (others=>'0');
       DataValidReg <= '0';
