@@ -23,10 +23,12 @@ package body ipbus_addr_decode is
   function ipbus_addr_sel(signal addr : in std_logic_vector(31 downto 0)) return integer is
     variable sel : integer;
   begin
-		if    std_match(addr, "------------0-------------------") then
+		if    std_match(addr, "------------0------0------------") then
 			sel := 0; -- block_ram / base 00100000 / mask 000003ff
 		elsif std_match(addr, "------------1-------------------") then
 			sel := 1; -- cii / base 00180000 / mask 0000ffff
+		elsif std_match(addr, "------------0------1------------") then
+			sel := 2; -- gol / base 00101000 / mask 00000007
 		else
 			sel := 99;
 		end if;

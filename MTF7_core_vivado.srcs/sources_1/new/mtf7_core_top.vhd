@@ -22,6 +22,8 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use work.ipbus.all;
+use work.links_pkg.all;
+
 library UNISIM;
 use UNISIM.VComponents.all;
 
@@ -40,6 +42,11 @@ Port (
     ttc_data_n : in std_logic;
     lhc_clk_p : in std_logic;
     lhc_clk_n : in std_logic;
+--GTH
+    gth_refclk_sync_p : in std_logic_vector(5 downto 0);
+    gth_refclk_sync_n : in std_logic_vector(5 downto 0);
+    gth_rxp : in std_logic_vector(23 downto 0);
+    gth_rxn : in std_logic_vector(23 downto 0);
 --LEDs
     led : out std_logic_vector(3 downto 0);
 
@@ -52,8 +59,9 @@ end mtf7_core_top;
 
 architecture Behavioral of mtf7_core_top is
 
-constant NSLV: positive := 2;
+constant NSLV: positive := 3;
 constant CII_ADDR_WIDTH : positive := 16;
+constant GOL_QUADS_NUMBER : natural := 6;
 
 attribute mark_debug : string;
 
@@ -61,6 +69,7 @@ signal clk_125M_buf : std_logic;
 signal idelay_ref_clk : std_logic;
 signal clk40_aligned : std_logic;
 signal lhc_clk : std_logic;
+signal gt_refclk_sync : std_logic_vector(5 downto 0);
 
 signal m_aclk : std_logic;
 signal m_axi_awid : std_logic_vector(0 downto 0);
@@ -116,6 +125,9 @@ signal cii_stroben : std_logic;
 signal cii_addr : std_logic_vector(CII_ADDR_WIDTH-1 downto 0);
 signal cii_din : std_logic_vector(31 downto 0);
 signal cii_dout : std_logic_vector(31 downto 0);
+
+signal gol_data : t_32b_array(4*GOL_QUADS_NUMBER-1 downto 0);
+signal usrclk_gol : std_logic;
 
 begin
 
@@ -251,7 +263,7 @@ port map(
     TTC_data_n => ttc_data_n,
     lhc_clk => lhc_clk,
     --RPC link
-    link_data => m_axi_wdata, --TODO!!!
+    link_data => gol_data(0),
     --CII
     ii_resetn => cii_resetn,
     ii_opern => cii_opern,
@@ -261,6 +273,24 @@ port map(
     ii_in_data => cii_din,
     ii_out_data => cii_dout
 );
+
+gol_receiver: entity work.gol_controller
+generic map(
+    g_quads_number => GOL_QUADS_NUMBER
+)
+port map(
+    ipb_rst => ipb_rst,
+    ipb_clk => ipb_clk,
+    ipb_in => ipbw(2),
+    ipb_out => ipbr(2),
+    
+    gt_refclk => gt_refclk_sync(GOL_QUADS_NUMBER-1 downto 0),
+    gt_rxp => gth_rxp,
+    gt_rxn => gth_rxn,
+    usrclk_out => usrclk_gol,
+    data_out => gol_data
+);
+
 m_pll: entity work.main_pll
 port map ( 
     -- Clock in ports
@@ -268,6 +298,14 @@ port map (
     -- Clock out ports  
     clk40_aligned => clk40_aligned,
     clk_200 => idelay_ref_clk              
+);
+
+gth_refclk_fanout: entity work.gth_refclk_fanout
+port map(
+    gt_refclk_sync_p => gth_refclk_sync_p,
+    gt_refclk_sync_n => gth_refclk_sync_n,
+    
+    gt_refclk_sync => gt_refclk_sync
 );
 
 led(0) <= axi_c2c_link_status and not(axi_c2c_multi_bit_error);
