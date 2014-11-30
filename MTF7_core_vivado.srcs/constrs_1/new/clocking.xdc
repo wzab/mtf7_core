@@ -6,6 +6,8 @@ create_clock -period 25.000 -name lhc_clk [get_ports lhc_clk_p]
 create_clock -period 8.000 -name clk_125M [get_ports clk_125M]
 #Chip2Chip data clock
 create_clock -period 2.500 -name ext_clk_in [get_ports ext_clk_in]
+#GTH sync clock
+create_clock -period 1.563 -name gt_sync_clk [get_ports gth_refclk_sync_p[0]]
 
 set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 
