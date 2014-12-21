@@ -1,0 +1,8 @@
+# Example addr_table file to show the format
+#
+# num	name		base	addr_width
+
+0	block_ram		0x100000	10
+1	cii		0x180000	16
+2	gol_rx	0x101000	3
+3	omtf_proc	0x102000	8
