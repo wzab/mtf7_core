@@ -54,8 +54,10 @@
 --  Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
 --   Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
 ------------------------------------------------------------------------------
--- CLK_OUT1____40.000______0.000______50.0______273.894____208.802
--- CLK_OUT2___200.000______0.000______50.0______182.470____208.802
+-- CLK_OUT1____40.000______0.000______50.0______130.435____132.071
+-- CLK_OUT2___200.000______0.000______50.0______105.065____132.071
+-- CLK_OUT3___160.000______0.000______50.0______108.158____132.071
+-- CLK_OUT4___320.000______0.000______50.0_______98.955____132.071
 --
 ------------------------------------------------------------------------------
 -- Input Clock   Freq (MHz)    Input Jitter (UI)
@@ -71,7 +73,9 @@ port
   clk_in1           : in     std_logic;
   -- Clock out ports
   clk40_aligned          : out    std_logic;
-  clk_200          : out    std_logic
+  clk_200          : out    std_logic;
+  clk_160          : out    std_logic;
+  clk_320          : out    std_logic
  );
 end component;
 
@@ -80,7 +84,7 @@ ATTRIBUTE SYN_BLACK_BOX OF main_pll : COMPONENT IS TRUE;
 
 
 ATTRIBUTE BLACK_BOX_PAD_PIN : STRING;
-ATTRIBUTE BLACK_BOX_PAD_PIN OF main_pll : COMPONENT IS "clk_in1,clk40_aligned,clk_200";
+ATTRIBUTE BLACK_BOX_PAD_PIN OF main_pll : COMPONENT IS "clk_in1,clk40_aligned,clk_200,clk_160,clk_320";
 
 -- COMP_TAG_END ------ End COMPONENT Declaration ------------
 -- The following code must appear in the VHDL architecture
@@ -93,6 +97,8 @@ your_instance_name : main_pll
    clk_in1 => clk_in1,
   -- Clock out ports  
    clk40_aligned => clk40_aligned,
-   clk_200 => clk_200              
+   clk_200 => clk_200,
+   clk_160 => clk_160,
+   clk_320 => clk_320              
  );
 -- INST_TAG_END ------ End INSTANTIATION Template ------------

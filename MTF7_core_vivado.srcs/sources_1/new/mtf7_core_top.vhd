@@ -71,6 +71,9 @@ signal clk40_aligned : std_logic;
 signal lhc_clk : std_logic;
 signal gt_refclk_sync : std_logic_vector(5 downto 0);
 
+signal omtf_clk160 : std_logic;
+signal omtf_clk320 : std_logic;
+
 signal m_aclk : std_logic;
 signal m_axi_awid : std_logic_vector(0 downto 0);
 signal m_axi_awaddr : std_logic_vector(31 downto 0);
@@ -291,13 +294,26 @@ port map(
     data_out => gol_data
 );
 
+omtf_processor: entity work.omtf_processor_v1
+port map(
+    ipb_rst => ipb_rst,
+    ipb_clk => ipb_clk,
+    ipb_in => ipbw(3),
+    ipb_out => ipbr(3),
+
+    clk_160 => omtf_clk160,
+    clk_320 => omtf_clk320
+    );
+
 m_pll: entity work.main_pll
 port map ( 
     -- Clock in ports
     clk_in1 => clk40_in,
     -- Clock out ports  
     clk40_aligned => clk40_aligned,
-    clk_200 => idelay_ref_clk              
+    clk_200 => idelay_ref_clk,              
+    clk_160 => omtf_clk160,             
+    clk_320 => omtf_clk320              
 );
 
 gth_refclk_fanout: entity work.gth_refclk_fanout

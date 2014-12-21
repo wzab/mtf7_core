@@ -55,8 +55,10 @@
 --  Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
 --   Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
 ------------------------------------------------------------------------------
--- CLK_OUT1____40.000______0.000______50.0______273.894____208.802
--- CLK_OUT2___200.000______0.000______50.0______182.470____208.802
+-- CLK_OUT1____40.000______0.000______50.0______130.435____132.071
+-- CLK_OUT2___200.000______0.000______50.0______105.065____132.071
+-- CLK_OUT3___160.000______0.000______50.0______108.158____132.071
+-- CLK_OUT4___320.000______0.000______50.0_______98.955____132.071
 --
 ------------------------------------------------------------------------------
 -- Input Clock   Freq (MHz)    Input Jitter (UI)
@@ -78,7 +80,9 @@ port
   clk_in1           : in     std_logic;
   -- Clock out ports
   clk40_aligned          : out    std_logic;
-  clk_200          : out    std_logic
+  clk_200          : out    std_logic;
+  clk_160          : out    std_logic;
+  clk_320          : out    std_logic
  );
 end main_pll_clk_wiz;
 
@@ -95,9 +99,11 @@ architecture xilinx of main_pll_clk_wiz is
   signal clk_200_main_pll          : std_logic;
   signal clk_200_main_pll_en_clk   : std_logic;
   signal clkout1b_unused         : std_logic;
-  signal clkout2_unused   : std_logic;
+  signal clk_160_main_pll          : std_logic;
+  signal clk_160_main_pll_en_clk   : std_logic;
   signal clkout2b_unused         : std_logic;
-  signal clkout3_unused   : std_logic;
+  signal clk_320_main_pll          : std_logic;
+  signal clk_320_main_pll_en_clk   : std_logic;
   signal clkout3b_unused  : std_logic;
   signal clkout4_unused   : std_logic;
   signal clkout5_unused   : std_logic;
@@ -113,12 +119,18 @@ architecture xilinx of main_pll_clk_wiz is
   signal clkinstopped_unused : std_logic;
   signal seq_reg1       : std_logic_vector(7 downto 0) := (others => '0');
   signal seq_reg2       : std_logic_vector(7 downto 0) := (others => '0');
+  signal seq_reg3       : std_logic_vector(7 downto 0) := (others => '0');
+  signal seq_reg4       : std_logic_vector(7 downto 0) := (others => '0');
   attribute ASYNC_REG   : string;
   attribute ASYNC_REG of seq_reg1: signal is "TRUE";
   attribute keep: boolean;
   attribute keep of seq_reg1: signal is true;
   attribute ASYNC_REG of seq_reg2: signal is "TRUE";
   attribute keep of seq_reg2: signal is true;
+  attribute ASYNC_REG of seq_reg3: signal is "TRUE";
+  attribute keep of seq_reg3: signal is true;
+  attribute ASYNC_REG of seq_reg4: signal is "TRUE";
+  attribute keep of seq_reg4: signal is true;
 
 begin
 
@@ -142,14 +154,20 @@ begin
    (BANDWIDTH            => "OPTIMIZED",
     COMPENSATION         => "ZHOLD",
     DIVCLK_DIVIDE        => 1,
-    CLKFBOUT_MULT        => 20,
+    CLKFBOUT_MULT        => 40,
     CLKFBOUT_PHASE       => 0.000,
-    CLKOUT0_DIVIDE       => 20,
+    CLKOUT0_DIVIDE       => 40,
     CLKOUT0_PHASE        => 0.000,
     CLKOUT0_DUTY_CYCLE   => 0.500,
-    CLKOUT1_DIVIDE       => 4,
+    CLKOUT1_DIVIDE       => 8,
     CLKOUT1_PHASE        => 0.000,
     CLKOUT1_DUTY_CYCLE   => 0.500,
+    CLKOUT2_DIVIDE       => 10,
+    CLKOUT2_PHASE        => 0.000,
+    CLKOUT2_DUTY_CYCLE   => 0.500,
+    CLKOUT3_DIVIDE       => 5,
+    CLKOUT3_PHASE        => 0.000,
+    CLKOUT3_DUTY_CYCLE   => 0.500,
     CLKIN1_PERIOD        => 25.0)
   port map
     -- Output clocks
@@ -157,8 +175,8 @@ begin
     CLKFBOUT            => clkfbout_main_pll,
     CLKOUT0             => clk40_aligned_main_pll,
     CLKOUT1             => clk_200_main_pll,
-    CLKOUT2             => clkout2_unused,
-    CLKOUT3             => clkout3_unused,
+    CLKOUT2             => clk_160_main_pll,
+    CLKOUT3             => clk_320_main_pll,
     CLKOUT4             => clkout4_unused,
     CLKOUT5             => clkout5_unused,
     -- Input clock control
@@ -225,6 +243,42 @@ begin
   begin
      if clk_200_main_pll_en_clk'event and clk_200_main_pll_en_clk = '1' then
         seq_reg2 <= seq_reg2(6 downto 0) & locked_int;
+     end if;
+  end process;
+
+  clkout3_buf : BUFGCE
+  port map
+   (O   => clk_160,
+    CE  => seq_reg3(7),
+    I   => clk_160_main_pll);
+
+  clkout3_buf_en : BUFH
+  port map
+   (O   => clk_160_main_pll_en_clk,
+    I   => clk_160_main_pll);
+   
+  process(clk_160_main_pll_en_clk)
+  begin
+     if clk_160_main_pll_en_clk'event and clk_160_main_pll_en_clk = '1' then
+        seq_reg3 <= seq_reg3(6 downto 0) & locked_int;
+     end if;
+  end process;
+
+  clkout4_buf : BUFGCE
+  port map
+   (O   => clk_320,
+    CE  => seq_reg4(7),
+    I   => clk_320_main_pll);
+
+  clkout4_buf_en : BUFH
+  port map
+   (O   => clk_320_main_pll_en_clk,
+    I   => clk_320_main_pll);
+   
+  process(clk_320_main_pll_en_clk)
+  begin
+     if clk_320_main_pll_en_clk'event and clk_320_main_pll_en_clk = '1' then
+        seq_reg4 <= seq_reg4(6 downto 0) & locked_int;
      end if;
   end process;
    
